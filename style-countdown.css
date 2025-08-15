@@ -1,0 +1,185 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+@font-face {
+    font-family: 'Custom';
+    src: url('font/ClassicalRomanceBold.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Custom1';
+    src: url('font/Ryhtm.ttf') format('truetype');
+    font-display: swap;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+}
+
+.left-sidebar {
+    background-color: #09090a;
+    width: 266px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.sidebar-bottom {
+    padding: 10px;
+}
+
+.login-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-decoration: none;
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 8px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.login-btn:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+.sidebar-title {
+    font-family: 'Custom1', sans-serif;
+    color: white;
+    font-size: 25px;
+    text-align: center;
+    font-weight: bold;
+    padding: 20px 15px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    line-height: 1.2;
+    height: 65px;
+}
+
+.left-sidebar a,
+.sidebar-bottom .login-btn {
+    text-decoration: none;
+    color: white;
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    line-height: 1;
+    padding: 6px 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    margin: 5px 0;
+}
+
+.left-sidebar i, a {
+    text-decoration: none;
+    color: white;
+    padding: 5px 10px;
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    margin: 5px;
+    height: 30px;
+    position: sticky;
+}
+
+.left-sidebar a:hover,
+.sidebar-bottom .login-btn:hover {
+    background-color: rgba(112, 111, 111, 0.5);
+}
+
+.left-sidebar a.active {
+    opacity: 1;
+    background-color: rgba(255, 255, 255, 0.2);
+    font-weight: bold;
+    border-radius: 5px;
+}
+
+.left-sidebar i {
+    color: #C8BCF6;
+}
+
+.main-content {
+    flex: 1;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    background: linear-gradient(to right, #a8c0ff, #fbc2eb);
+    min-height: 100vh;
+    box-sizing: border-box;
+}
+
+.header h1 {
+    font-size: 64px;
+}
+
+.header p {
+    font-size: 16px;
+    font-style: italic;
+}
+
+.header {
+    font-family: 'Custom', sans-serif;
+    transform: translateY(-300px);
+}
+
+.since-date {
+    font-family: 'Custom1', serif;
+    font-size: 48px;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 40px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.countdown-display {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.time-item {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    padding: 15px 10px;
+    min-width: 80px;
+    text-align: center;
+}
+
+.time-number {
+    display: block;
+    font-size: 28px;
+    font-weight: bold;
+    color: white;
+    margin-bottom: 8px;
+    font-family: 'Custom', serif;
+}
+
+.time-label {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.7);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.time-separator {
+    margin: 0 10px;
+    opacity: 0.8;
+}

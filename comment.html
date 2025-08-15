@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Note - Our Story</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="comment.css">
+</head>
+<body>
+<div class="left-sidebar">
+  <div class="sidebar-top">
+    <div class="sidebar-title">1st</div>
+    <a href="home.html"><i class="fa fa-home"></i> Homepage</a>
+    <a href="memories.html"><i class="fa fa-image"></i> Memories</a>
+    <a href="countdown.html"><i class="fa fa-clock"></i> Elapsed Time</a>
+    <a href="#" class="active"><i class="fa fa-note-sticky"></i> Notes</a>
+  </div>
+  <div class="sidebar-bottom">
+    <a href="#" class="login-btn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+  </div>
+</div>
+<div class="main-content">
+  <div class="guestbook-container">
+    <div class="guestbook-header">
+      <h1>Love Notes</h1>
+      <p>Our secret space to share thoughts and feelings ✨</p>
+    </div>
+    <div class="stats">
+      <div class="stats-item">
+        <span class="stats-number" id="totalMessages">0</span>
+        <span class="stats-label">Notes</span>
+      </div>
+    </div>
+    <div class="message-form">
+      <form id="guestbookForm">
+        <div class="form-group">
+          <label for="name">Your Name *</label>
+          <input type="text" id="name" name="name" required placeholder="Your name...">
+        </div>
+        <div class="form-group">
+          <label for="message">Your Message *</label>
+          <textarea id="message" name="message" required placeholder="Share your thoughts, feelings, or just say something sweet..."></textarea>
+        </div>
+        <div class="form-group">
+          <label for="reaction">Choose a Reaction</label>
+          <div class="emoji-selector">
+            <button type="button" class="emoji-btn" data-emoji="❤️">❤️</button>
+            <button type="button" class="emoji-btn" data-emoji="🥰">🥰</button>
+            <button type="button" class="emoji-btn" data-emoji="🥲">🥲</button>
+            <button type="button" class="emoji-btn" data-emoji="😺">😺</button>
+            <button type="button" class="emoji-btn" data-emoji="😡">😡</button>
+          </div>
+        </div>
+        <button type="submit" class="submit-btn">
+          <i class="fas fa-paper-plane"></i> Send Note
+        </button>
+      </form>
+    </div>
+    <div class="messages-container" id="messagesContainer">
+      <div style="text-align: center; padding: 60px 20px; color: rgba(255,255,255,0.7); font-style: italic;">
+        <i class="fas fa-heart" style="font-size: 48px; margin-bottom: 20px; opacity: 0.5;"></i>
+        <p style="font-size: 18px;">No notes yet...</p>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="script-comment.js"></script>
+<script src="auth.js"></script>
+</body>
+</html>

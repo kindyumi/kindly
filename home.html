@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Homepage</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="index-style.css">
+</head>
+<body>
+<div class="left-sidebar">
+    <div class="sidebar-top">
+        <div class="sidebar-title">1st</div>
+        <a href="#" class="active"><i class="fa fa-home"></i> Homepage</a>
+        <a href="memories.html"><i class="fa fa-image"></i> Memories</a>
+        <a href="countdown.html"><i class="fa fa-clock"></i> Elapsed Time</a>
+        <a href="comment.html"><i class="fa fa-note-sticky"></i> Notes</a>
+    </div>
+    <div class="sidebar-bottom">
+        <a href="#" class="login-btn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+    </div>
+</div>
+
+<div class="main-content">
+    <div class="container-main">
+        <div class="header">
+            <h1>Our Little Universe</h1>
+            <p>"In our little universe, we write our own stars."</p>
+        </div>
+
+        <!-- Note Section -->
+        <div class="note-section">
+            <button class="note-toggle" id="noteToggle" onclick="toggleNote()">
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                Pencet aja
+            </button>
+
+            <div class="note-panel" id="notePanel">
+                <div class="note-header">
+                    <i class="fa fa-sticky-note"></i> Just Simple Sticky Notes For My Best GF
+                </div>
+                <div class="note-content">
+                    <p>&nbsp;&nbsp;&nbsp;Hai sayangku. Apa dulu yaaa, aku buat ini buat kenang kenangan aja wkwkw. Banyak yang belum jadi sebenernya cumaaaaaaaaaaaaaaa karena aku bingung jadi aku kerjain dikit dikit aja wkwk. <br>~08/08/2025</br></p>
+                    <p>&nbsp;&nbsp;&nbsp;Hai sayanggg, aku lanjutin ini lagi. Kaya apa yaa, aku ga ada ide sebenernya mau apa aja ini yg di sidebar, terusss aku juga ga ngerti sama sekali ini css sama html, aku anaknya backend banget wkwkwkwkwkwkwk, jadi mohon dimaafin karena jelek. Mungkin ku tambahin kaya timeline atau countdown dari awal kita pacaran, kita pacaran dari awal pas aku ngajakin kamu pacaran itu gak yang? pas yg tanggal 16 juni, iya ga? atau yang lain? maaf kalo aku lupa, aku gapernah merhatiin kaya gini soalnya wkwk <br>~09/08/2025</p>
+                    <p>&nbsp;&nbsp;&nbsp;Wkwkwk hai lagi sayang. Dua hari baru ku lanjutin ini kemarin ga ada ide sama sekali adh, kamu kalo ngajak udahan jangan sampe ngeblock donggg, aku bingung mau ngapain, ga bingung sih jadinya bisa ngerjain ini wkwkwkwkwkwk, ku tambahin apalagi ya?, pengen ku kasih tab "memories" cuma foto kita masih dikit, itu juga cuma ada dua, itu jg jelek semua, jadi mungkin ku kasih placeholder dulu aja <br>~10/08/2025</p>
+                    <p>&nbsp;&nbsp;&nbsp;Hai sayang, masih tanggal 11 cuma aku mau nambahin notenya aja, mungkin nanti aku tambahin tab "notes" aja di kiri biar bisa kamu nambahin sendiri, mungkin ku kasih list apa aja yg aku suka dari kamu 😹</p>
+                    <p><strong>Things I Love About You:</strong></p>
+                    <ul>
+                        <li>Kamu itu lucu, cantik. aku pas pertama ketmu ga berani bilang soalnya malu wkwk</li>
+                        <li>Baik sama aku</li>
+                        <li>Rajin menabung😹, pinter</li>
+                        <li>Banyak lagi, ini bikin error kalo ditambahin lagi jadi nanti aja ku benerin.</li>
+                    </ul>
+                    <p>~04:23 PM / 11.08.2025</p>
+                    <p>&nbsp;&nbsp;&nbsp;Hai sayang, maafin aku, aku marah pagi tadi, aku cemburu aja liat chat kamu sama dia, soalnya kamu dulu pas awal kenal sama aku juga ngga kaya gitu, jadi aku kaya mikir "kenapa kamu chatnya kaya gini?", cuma sekarang aku juga jadi tau aku aja yg sebenernya berlebihan, maafin aku ya, wkwk kemarin yg aku mau cerita sama kamu tau gaksih itu sebenernya aku nangis terus wkwk aku lupa abis motongin cabe malah ngucek mata 😹. teruss aku lanjutin lagi ini, ku selesain aja, mungkin ini buat dev notes aja, wkwkwkw sok bgt dev notes-dev notes cuihhhh <br>~ 09:38 PM / 12.08.2025</p>
+                    <p>&nbsp;&nbsp;&nbsp;Hai sayangku, seperti biasanya kalo kita berantem aku gabisa tidur wkwkwkwkw, jadi lanjutin ini, mungkin ku tambahin buat login biar kamu nanti bisa nambahin foto sendiri di bagian memories. Sayang, kamu bilang kamu ga pantes gitu, kamu pantes bgttt. Terus aku pengen cerita biasanya hpku kalo ada yg chat suara tiktoknya jadi kecil terus tadi aku lgi scroll tiktok kadang suka kecil suaranya ku kira kamu ngechat ternyata notif SMS spam promosi. Kamu mikirnya sekarang gimana? pengen apa? mungkin nanti kamu bisa chat aku langsung atauu tambahin di notes di kiri ini biar aku baca nanti, tapi belum ku kerjain sih, masih error <em>firebase</em>nya jadi kalo kamu pencet send gabakal keliatan, itu harusnya muncul dibawah yg ada tulisan No Notes yet itu. <br><strong><em>You're still the person I love the most, so I hope you feel the same way.</em></strong><br>~ 01:14 AM / 13.08.2025</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let noteOpen = false;
+
+        function toggleNote() {
+            const panel = document.getElementById('notePanel');
+            const toggle = document.getElementById('noteToggle');
+
+            noteOpen = !noteOpen;
+
+            if (noteOpen) {
+                panel.classList.add('open');
+                toggle.classList.add('active');
+            } else {
+                panel.classList.remove('open');
+                toggle.classList.remove('active');
+            }
+        }
+
+        // Close note when clicking outside
+        document.addEventListener('click', function(event) {
+            const noteSection = document.querySelector('.note-section');
+            if (noteOpen && !noteSection.contains(event.target)) {
+                toggleNote();
+            }
+        });
+    </script>
+
+    <!-- Authentication script must be loaded -->
+    <script src="auth.js"></script>
+</body>
+</html>

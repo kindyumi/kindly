@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Elapsed Time</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="style-countdown.css">
+</head>
+<body>
+<div class="left-sidebar">
+    <div class="sidebar-top">
+        <div class="sidebar-title">1st</div>
+        <a href="home.html"><i class="fa fa-home"></i> Homepage</a>
+        <a href="memories.html"><i class="fa fa-image"></i> Memories</a>
+        <a href="#" class="active"><i class="fa fa-clock"></i> Elapsed Time</a>
+        <a href="comment.html"><i class="fa fa-note-sticky"></i> Notes</a>
+    </div>
+
+    <div class="sidebar-bottom">
+        <a href="#" class="login-btn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+    </div>
+</div>
+
+<div class="main-content">
+    <div class="since-date">Since 16 - June - 2025</div>
+
+    <div class="countdown-display">
+        <div class="time-item">
+            <span class="time-number" id="years">0</span>
+            <span class="time-label">Years</span>
+        </div>
+        <div class="time-item">
+            <span class="time-number" id="months">0</span>
+            <span class="time-label">Months</span>
+        </div>
+        <div class="time-item">
+            <span class="time-number" id="days">0</span>
+            <span class="time-label">Days</span>
+        </div>
+        <div class="time-item">
+            <span class="time-number" id="hours">00</span>
+            <span class="time-label">Hours</span>
+        </div>
+        <div class="time-item">
+            <span class="time-number" id="minutes">00</span>
+            <span class="time-label">Minutes</span>
+        </div>
+        <div class="time-item">
+            <span class="time-number" id="seconds">00</span>
+            <span class="time-label">Seconds</span>
+        </div>
+    </div>
+</div>
+<script src="script.js"></script>
+<script src="auth.js"></script>
+</body>
+</html>

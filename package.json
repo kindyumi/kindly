@@ -1,0 +1,9 @@
+{
+  "name": "guestbook-app",
+  "version": "1.0.0",
+  "description": "A beautiful guestbook app",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.38.0",
+    "crypto": "^1.0.1"
+  }
+}
