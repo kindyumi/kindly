@@ -2,16 +2,99 @@
 const guestbookForm = document.getElementById('guestbookForm');
 const messagesContainer = document.getElementById('messagesContainer');
 const totalMessagesSpan = document.getElementById('totalMessages');
+const mediaInput = document.getElementById('mediaInput');
+const mediaPreview = document.getElementById('mediaPreview');
+const uploadPlaceholder = document.querySelector('.upload-placeholder');
 
 // State
 let selectedEmoji = '❤️'; // Default emoji
 let messages = [];
+let selectedFile = null;
+let currentUser = null;
 
 // Initialize page
 document.addEventListener('DOMContentLoaded', function() {
     setupEmojiSelector();
+    setupMediaUpload();
+    getCurrentUser();
     loadMessages();
 });
+
+// Get current user from token
+async function getCurrentUser() {
+    const token = sessionStorage.getItem('authToken');
+    if (token) {
+        try {
+            const response = await fetch('/.netlify/functions/verify-token', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ token })
+            });
+            const result = await response.json();
+            if (result.valid) {
+                currentUser = result.username;
+            }
+        } catch (error) {
+            console.error('Error getting current user:', error);
+        }
+    }
+}
+
+// Setup Media Upload
+function setupMediaUpload() {
+    mediaInput.addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (file) {
+            // Validate file size (10MB max)
+            if (file.size > 10 * 1024 * 1024) {
+                showNotification('File terlalu besar! Maksimal 10MB', 'error');
+                return;
+            }
+
+            // Validate file type
+            if (!file.type.startsWith('image/') && !file.type.startsWith('video/')) {
+                showNotification('Hanya file gambar dan video yang diperbolehkan', 'error');
+                return;
+            }
+
+            selectedFile = file;
+            showMediaPreview(file);
+        }
+    });
+}
+
+// Show media preview
+function showMediaPreview(file) {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        const previewImage = document.getElementById('previewImage');
+        const previewVideo = document.getElementById('previewVideo');
+
+        if (file.type.startsWith('image/')) {
+            previewImage.src = e.target.result;
+            previewImage.style.display = 'block';
+            previewVideo.style.display = 'none';
+        } else if (file.type.startsWith('video/')) {
+            previewVideo.src = e.target.result;
+            previewVideo.style.display = 'block';
+            previewImage.style.display = 'none';
+        }
+
+        uploadPlaceholder.style.display = 'none';
+        mediaPreview.style.display = 'block';
+    };
+    reader.readAsDataURL(file);
+}
+
+// Remove media
+function removeMedia() {
+    selectedFile = null;
+    mediaPreview.style.display = 'none';
+    uploadPlaceholder.style.display = 'block';
+    mediaInput.value = '';
+    document.getElementById('previewImage').src = '';
+    document.getElementById('previewVideo').src = '';
+}
 
 // Setup Emoji Selector
 function setupEmojiSelector() {
@@ -34,6 +117,25 @@ function setupEmojiSelector() {
     });
 }
 
+// Upload file to Google Drive via Netlify Function
+async function uploadToGoogleDrive(file) {
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('filename', file.name);
+
+    const response = await fetch('/.netlify/functions/upload-to-drive', {
+        method: 'POST',
+        body: formData
+    });
+
+    if (!response.ok) {
+        throw new Error('Gagal upload file');
+    }
+
+    const result = await response.json();
+    return result.fileUrl;
+}
+
 // Form submission handler
 guestbookForm.addEventListener('submit', async function(e) {
     e.preventDefault();
@@ -47,13 +149,25 @@ guestbookForm.addEventListener('submit', async function(e) {
         submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
         
         // Get form data
-        const name = document.getElementById('name').value.trim();
         const message = document.getElementById('message').value.trim();
         
         // Validate form
-        if (!name || !message) {
-            throw new Error('Name and message are required');
+        if (!message) {
+            throw new Error('Message is required');
         }
+
+        // Get display name based on user
+        const displayName = getUserDisplayName(currentUser);
+        
+        let mediaUrl = null;
+        
+        // Upload media if selected
+        if (selectedFile) {
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Uploading media...';
+            mediaUrl = await uploadToGoogleDrive(selectedFile);
+        }
+
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving note...';
         
         // Send to Netlify Function
         const response = await fetch('/.netlify/functions/add-message', {
@@ -62,9 +176,12 @@ guestbookForm.addEventListener('submit', async function(e) {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                name: name,
+                name: displayName,
                 message: message,
-                emoji: selectedEmoji
+                emoji: selectedEmoji,
+                mediaUrl: mediaUrl,
+                mediaType: selectedFile ? selectedFile.type : null,
+                username: currentUser
             })
         });
         
@@ -79,6 +196,7 @@ guestbookForm.addEventListener('submit', async function(e) {
         
         // Reset form
         guestbookForm.reset();
+        removeMedia();
         
         // Reset emoji selection to default
         document.querySelectorAll('.emoji-btn').forEach(btn => btn.classList.remove('selected'));
@@ -97,6 +215,18 @@ guestbookForm.addEventListener('submit', async function(e) {
         submitBtn.innerHTML = originalText;
     }
 });
+
+// Get display name based on username
+function getUserDisplayName(username) {
+    switch(username) {
+        case 'Unkindleddd20032004':
+            return 'H';
+        case 'Schatz':
+            return 'R';
+        default:
+            return username || 'Anonymous';
+    }
+}
 
 // Load messages from Netlify Function
 async function loadMessages() {
@@ -135,12 +265,34 @@ function displayMessages(messages) {
         const messageClass = Math.random() > 0.5 ? 'polaroid-effect' : 'message-card';
         const animationDelay = index * 0.1;
         
+        // Media content
+        let mediaContent = '';
+        if (msg.media_url) {
+            if (msg.media_type && msg.media_type.startsWith('video/')) {
+                mediaContent = `
+                    <div class="message-media">
+                        <video controls style="max-width: 100%; border-radius: 10px;">
+                            <source src="${msg.media_url}" type="${msg.media_type}">
+                            Browser Anda tidak support video.
+                        </video>
+                    </div>
+                `;
+            } else {
+                mediaContent = `
+                    <div class="message-media">
+                        <img src="${msg.media_url}" alt="Media" style="max-width: 100%; border-radius: 10px;">
+                    </div>
+                `;
+            }
+        }
+        
         return `
-            <div class="${messageClass}" style="animation-delay: ${animationDelay}s; opacity: 0; animation: fadeInUp 0.6s ease forwards;">
+            <div class="${messageClass}" style="animation-delay: ${animationDelay}s; opacity: 0; animation: fadeInUp 0.6s ease forwards; position: relative;">
+                <div class="message-author-badge">${escapeHtml(msg.name)}</div>
                 <div class="message-header">
-                    <div class="message-author">${escapeHtml(msg.name)}</div>
                     <div class="message-emoji">${msg.emoji || '❤️'}</div>
                 </div>
+                ${mediaContent}
                 <div class="message-text">${escapeHtml(msg.message)}</div>
                 <div class="message-footer">
                     <div class="message-date">${formatDate(msg.created_at)}</div>

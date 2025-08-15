@@ -1,9 +1,11 @@
 {
   "name": "guestbook-app",
   "version": "1.0.0",
-  "description": "A beautiful guestbook app",
+  "description": "A beautiful guestbook app with memories",
   "dependencies": {
     "@supabase/supabase-js": "^2.38.0",
-    "crypto": "^1.0.1"
+    "crypto": "^1.0.1",
+    "googleapis": "^128.0.0",
+    "multer": "^1.4.5-lts.1"
   }
 }

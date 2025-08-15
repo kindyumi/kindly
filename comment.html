@@ -23,7 +23,7 @@
   <div class="guestbook-container">
     <div class="guestbook-header">
       <h1>Love Notes</h1>
-      <p>Our secret space to share thoughts and feelings ✨</p>
+      <p>Our secret space to share thoughts and feelings</p>
     </div>
     <div class="stats">
       <div class="stats-item">
@@ -34,13 +34,32 @@
     <div class="message-form">
       <form id="guestbookForm">
         <div class="form-group">
-          <label for="name">Your Name *</label>
-          <input type="text" id="name" name="name" required placeholder="Your name...">
-        </div>
-        <div class="form-group">
           <label for="message">Your Message *</label>
           <textarea id="message" name="message" required placeholder="Share your thoughts, feelings, or just say something sweet..."></textarea>
         </div>
+        
+        <!-- Media Upload Section -->
+        <div class="form-group">
+          <label for="media">Add Photo/Video (Optional)</label>
+          <div class="media-upload-area" id="mediaUploadArea">
+            <input type="file" id="mediaInput" accept="image/*,video/*" style="display: none;">
+            <div class="upload-placeholder" onclick="document.getElementById('mediaInput').click()">
+              <i class="fas fa-cloud-upload-alt"></i>
+              <p>Click to upload photo or video</p>
+              <small>Max size: 10MB</small>
+            </div>
+            <div class="media-preview" id="mediaPreview" style="display: none;">
+              <div class="preview-container">
+                <img id="previewImage" style="display: none;">
+                <video id="previewVideo" style="display: none;" controls></video>
+                <button type="button" class="remove-media" onclick="removeMedia()">
+                  <i class="fas fa-times"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        
         <div class="form-group">
           <label for="reaction">Choose a Reaction</label>
           <div class="emoji-selector">

@@ -402,3 +402,96 @@ body {
         width: 200px;
     }
 }
+
+    .media-upload-area {
+      border: 2px dashed #ddd;
+      border-radius: 10px;
+      position: relative;
+      transition: border-color 0.3s ease;
+    }
+
+    .media-upload-area:hover {
+      border-color: #a8c0ff;
+    }
+
+    .upload-placeholder {
+      padding: 40px 20px;
+      text-align: center;
+      cursor: pointer;
+      color: #666;
+    }
+
+    .upload-placeholder i {
+      font-size: 48px;
+      margin-bottom: 15px;
+      color: #a8c0ff;
+    }
+
+    .upload-placeholder p {
+      margin: 10px 0 5px 0;
+      font-weight: bold;
+    }
+
+    .media-preview {
+      padding: 15px;
+    }
+
+    .preview-container {
+      position: relative;
+      display: inline-block;
+      max-width: 100%;
+    }
+
+    .preview-container img,
+    .preview-container video {
+      max-width: 100%;
+      max-height: 300px;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    .remove-media {
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      background: #ff4757;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      transition: background 0.3s ease;
+    }
+
+    .remove-media:hover {
+      background: #ff3742;
+    }
+
+    /* Message card with media */
+    .message-media {
+      margin: 10px 0;
+    }
+
+    .message-media img,
+    .message-media video {
+      max-width: 100%;
+      border-radius: 10px;
+      margin-bottom: 10px;
+    }
+
+    .message-author-badge {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: linear-gradient(135deg, #a8c0ff, #fbc2eb);
+      color: white;
+      padding: 5px 10px;
+      border-radius: 15px;
+      font-weight: bold;
+      font-size: 12px;
+    }

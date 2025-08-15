@@ -1,3 +1,4 @@
+// netlify/functions/add-message.js (Updated)
 const { createClient } = require('@supabase/supabase-js')
 
 const supabaseUrl = process.env.SUPABASE_URL
@@ -32,19 +33,19 @@ exports.handler = async (event, context) => {
   }
 
   try {
-    const { name, message, emoji } = JSON.parse(event.body)
+    const { name, message, emoji, mediaUrl, mediaType, username } = JSON.parse(event.body)
     
     // Validate input
-    if (!name || !message) {
+    if (!message) {
       return {
         statusCode: 400,
         headers,
-        body: JSON.stringify({ error: 'Name and message are required' })
+        body: JSON.stringify({ error: 'Message is required' })
       }
     }
 
     // Sanitize input
-    const sanitizedName = name.trim().substring(0, 50)
+    const sanitizedName = name ? name.trim().substring(0, 50) : 'Anonymous'
     const sanitizedMessage = message.trim().substring(0, 500)
     const sanitizedEmoji = emoji || '❤️'
 
@@ -55,6 +56,9 @@ exports.handler = async (event, context) => {
           name: sanitizedName,
           message: sanitizedMessage,
           emoji: sanitizedEmoji,
+          media_url: mediaUrl || null,
+          media_type: mediaType || null,
+          username: username || null,
           created_at: new Date().toISOString()
         }
       ])
